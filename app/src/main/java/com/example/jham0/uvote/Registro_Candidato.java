@@ -81,13 +81,13 @@ public class Registro_Candidato extends AppCompatActivity {
                     } else {
                         query.insertarCandidato(nombre, cedula, partido, url);
                         Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_LONG).show();
-                        clearFields();
                     }
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error: " +
                             e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
+            clearFields();
         });
     }
 

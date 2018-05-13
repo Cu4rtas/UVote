@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jham0.uvote.Db.DbQuery;
+import com.example.jham0.uvote.Estadisticas.Estadisticas;
 import com.example.jham0.uvote.Votaciones.Votacion;
 
 import java.util.ArrayList;
@@ -57,10 +58,14 @@ public class Inicio extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Ingrese cédula", Toast.LENGTH_SHORT).show();
             } else {
                 if (verificarCedula()) {
-                    Intent intent = new Intent(getApplicationContext(), Votacion.class);
-                    intent.putExtra("Cedula", etVerificarCedula.getText().toString());
-                    startActivity(intent);
-                    etVerificarCedula.setText("");
+                    if (query.verificarVotacion(etVerificarCedula.getText().toString())) {
+                        Toast.makeText(getApplicationContext(), "Ya se ha registrado su voto " +
+                                "antetiormente", Toast.LENGTH_LONG).show();
+                        etVerificarCedula.setText("");
+                    } else {
+                        irVotacion();
+                    }
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Cédula no registrada", Toast.LENGTH_SHORT).show();
                     etVerificarCedula.setText("");
@@ -69,8 +74,15 @@ public class Inicio extends AppCompatActivity {
         });
         //TODO: Crear el barchart para mostrar los resultados
         btnIrEstadisticas.setOnClickListener(view -> {
-
+            startActivity( new Intent(getApplicationContext(), Estadisticas.class));
         });
+    }
+
+    private void irVotacion() {
+        Intent intent = new Intent(getApplicationContext(), Votacion.class);
+        intent.putExtra("Cedula", etVerificarCedula.getText().toString());
+        startActivity(intent);
+        etVerificarCedula.setText("");
     }
 
     private boolean verificarCedula() {

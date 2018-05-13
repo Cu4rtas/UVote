@@ -14,7 +14,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /**Constantes**/
 
-    public static final String TABLA_VOTANTES = "create table Votante(Cedula text primary key, Voto boolean)";
+    public static final String TABLA_VOTANTES = "create table Votante(Cedula text primary key, Voto interger)";
 
     public static final String TABLA_CANDIDATO = "create table Candidato(Nombre text," +
             " Cedula text primary key, Partido text, Votos interger, Url text)";

@@ -30,6 +30,7 @@ public class DbQuery {
         cv.put("Nombre", nombre);
         cv.put("Cedula", cedula);
         cv.put("Partido", partido);
+        cv.put("Votos", 0);
         cv.put("Url", url);
         db.insert("Candidato", null, cv);
         close();
@@ -38,7 +39,7 @@ public class DbQuery {
     public void insertarVotante(String cedula) {
         open();
         cv.put("Cedula", cedula);
-        cv.put("Voto", false);
+        cv.put("Voto", 0);
         db.insert("Votante", null, cv);
         close();
     }
@@ -94,5 +95,29 @@ public class DbQuery {
         }
         close();
         return cedulas;
+    }
+
+    /**
+     * Se encarga de actualizar los campos de las tablas Candidato
+     * y Votante
+     * @param cedulaCandidato Representa la cedula del candidato
+     * @param cedulaVotante Representa la cedula del votante
+     */
+    public void actualizarVoto(String cedulaCandidato, String cedulaVotante) {
+        open();
+        db.execSQL("update Candidato set Votos = Votos + 1 where Cedula = " + cedulaCandidato);
+        db.execSQL("update Votante set Voto = '1' where Cedula = " + cedulaVotante);
+        close();
+    }
+
+    public boolean verificarVotacion(String cedulaVotante) {
+        open();
+        Boolean voto = null;
+        cursor = db.rawQuery("select Voto from Votante where Cedula = " + cedulaVotante, null);
+        if (cursor.moveToFirst()) {
+            voto = cursor.getInt(cursor.getColumnIndex("Voto")) == 1;
+        }
+        close();
+        return voto;
     }
 }
