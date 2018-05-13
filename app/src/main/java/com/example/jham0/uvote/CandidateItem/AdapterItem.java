@@ -17,6 +17,7 @@ public class AdapterItem extends BaseAdapter {
     protected ArrayList<CandidateItem> items;
     protected Context context;
     public AdapterItem (Context context,Activity activity, ArrayList<CandidateItem> items) {
+        this.context = context;
         this.activity = activity;
         this.items = items;
     }
