@@ -57,7 +57,7 @@
         android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="Ingrese Cedula..."
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="@+id/etNombreCandidato"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/etNombreCandidato"
@@ -136,16 +136,16 @@
     <Button
         android:id="@+id/btnMostrarImagen"
         android:layout_width="190dp"
-        android:layout_height="wrap_content"
+        android:layout_height="54dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button_style"
         android:backgroundTint="#bbbbbb"
         android:text="Visualizar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.714"
-        app:layout_constraintStart_toEndOf="@+id/imgURL"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etURL" />
 
 </android.support.constraint.ConstraintLayout>

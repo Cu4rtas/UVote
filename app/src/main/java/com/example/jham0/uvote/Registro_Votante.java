@@ -49,10 +49,10 @@ public class Registro_Votante extends AppCompatActivity {
                 } else {
                     ArrayList<String> votantes = query.obtenerCedulasVotante();
                     if (votantes.contains(etCedulaVotante.getText().toString())) {
-                        Toast.makeText(getApplicationContext(), "La cédula ya esta registrada.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "La cédula ya esta registrada", Toast.LENGTH_LONG).show();
                     } else {
                         query.insertarVotante(etCedulaVotante.getText().toString());
-                        Toast.makeText(getApplicationContext(), "Registro exitoso.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_LONG).show();
                     }
                 }
                 etCedulaVotante.setText("");

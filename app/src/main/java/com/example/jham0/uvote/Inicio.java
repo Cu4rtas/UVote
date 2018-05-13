@@ -60,7 +60,7 @@ public class Inicio extends AppCompatActivity {
                 if (verificarCedula()) {
                     if (query.verificarVotacion(etVerificarCedula.getText().toString())) {
                         Toast.makeText(getApplicationContext(), "Ya se ha registrado su voto " +
-                                "antetiormente", Toast.LENGTH_LONG).show();
+                                "anteriormente", Toast.LENGTH_LONG).show();
                         etVerificarCedula.setText("");
                     } else {
                         irVotacion();

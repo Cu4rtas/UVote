@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.jham0.uvote.CandidateItem.AdapterItem;
 import com.example.jham0.uvote.CandidateItem.CandidateItem;
 
 import java.util.ArrayList;
