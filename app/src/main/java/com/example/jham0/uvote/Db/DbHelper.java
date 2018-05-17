@@ -29,6 +29,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLA_VOTANTES);
         db.execSQL(TABLA_CANDIDATO);
+        db.execSQL("insert into Candidato values('Voto en Blanco','0',' ','0','#fff')");
     }
 
     @Override

@@ -7,8 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.jham0.uvote.CandidateItem.AdapterItem;
 import com.example.jham0.uvote.CandidateItem.CandidateItem;
+import com.example.jham0.uvote.Votaciones.Resultados;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.jham0.uvote.Db.DbHelper.TABLA_CANDIDATO;
+import static com.example.jham0.uvote.Db.DbHelper.TABLA_VOTANTES;
 
 public class DbQuery {
     /**Atributos**/
@@ -120,5 +125,50 @@ public class DbQuery {
         }
         close();
         return voto;
+    }
+
+    public ArrayList<Resultados> obtenerResultados() {
+        ArrayList<Resultados> resultados = new ArrayList<>();
+        open();
+        String columns[] = { "Nombre","Votos" };
+        cursor = db.query("Candidato",columns,null,null,null,null,null);
+        if (cursor.moveToFirst()) {
+            do {
+                resultados.add( new Resultados(cursor.getString(0),cursor.getInt(1)));
+            } while (cursor.moveToNext());
+        }
+        close();
+        return resultados;
+    }
+
+    private int totalVotos() {
+        open();
+        int total = 0;
+        cursor = db.rawQuery("select * from Votante where Voto = 1",null);
+        if (cursor.moveToFirst()) {
+            do {
+                total += 1;
+            }while (cursor.moveToNext());
+        }
+        close();
+        return total;
+    }
+
+    /**
+     * Determina si el 'Voto en Blanco'
+     * tiene mas del 50% de los votos.
+     */
+    public boolean mayorVotoEnBlanco() {
+        return (obtenerResultados().get(0).getVotos() > totalVotos()/2);
+    }
+
+    public void eliminarTablas() {
+        open();
+        db.execSQL("drop table if exists Votante");
+        db.execSQL("drop table if exists Candidato");
+        db.execSQL(TABLA_VOTANTES);
+        db.execSQL(TABLA_CANDIDATO);
+        db.execSQL("insert into Candidato values('Voto en Blanco','0',' ','0','#fff')");
+        close();
     }
 }

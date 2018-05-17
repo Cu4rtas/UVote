@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.content.Intent;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class Inicio extends AppCompatActivity {
     private TextView btnRegistrarCandidato, btnRegistrarVotante;
     private EditText etVerificarCedula;
     private ImageButton btnIrVotar,btnIrEstadisticas;
+    private Button btnVerificarVotBlanco;
     /**Atributos**/
     DbQuery query;
     @Override
@@ -30,6 +32,10 @@ public class Inicio extends AppCompatActivity {
         setContentView(R.layout.activity_inicio);
         connect();
         ir();
+
+        btnVerificarVotBlanco.setOnClickListener(view -> {
+            verVotoB();
+        });
     }
 
     public void connect() {
@@ -38,6 +44,7 @@ public class Inicio extends AppCompatActivity {
         etVerificarCedula = findViewById(R.id.etVerificacionCedula);
         btnIrVotar = findViewById(R.id.btnIrVotar);
         btnIrEstadisticas = findViewById(R.id.btnIrEstadisticas);
+        btnVerificarVotBlanco = findViewById(R.id.btnVerificarVotoBlanco);
         /**Atributos**/
         query = new DbQuery(getApplicationContext());
     }
@@ -88,6 +95,15 @@ public class Inicio extends AppCompatActivity {
     private boolean verificarCedula() {
         ArrayList<String> cedulas = query.obtenerCedulasVotante();
         return cedulas.contains(etVerificarCedula.getText().toString());
+    }
+
+    private void verVotoB() {
+        if (query.mayorVotoEnBlanco()) {
+            query.eliminarTablas();
+            Toast.makeText(getApplicationContext(), "Voto en blanco con mas del 50%\nSe reeligen candidatos", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "El voto en blanco no es mayor al 50% de los votos", Toast.LENGTH_LONG).show();
+        }
     }
 }
 
